@@ -24,6 +24,16 @@ pipeline {
             }
         }
 
+        stage('Build') {
+            steps {
+
+            sh 'ls -lrt'
+            sh 'zip -r  ./* --exclude=.git'
+            
+            }
+        }
+
+
         stage('Deployment') {
            steps {
                  
