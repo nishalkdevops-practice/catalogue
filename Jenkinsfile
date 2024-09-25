@@ -34,6 +34,18 @@ pipeline {
         }
 
           //install pipeline utility steps plugin, if not installed
+
+
+
+        stage('Publish artifact') {
+            steps {
+
+                sh 'ls -lrt'
+                sh 'zip -r  catalogue.zip ./* --exclude=.git --exclude=.zip'
+            
+            }
+        }
+
         stage('Publish Artifact') {
             steps {
                 nexusArtifactUploader(
@@ -51,16 +63,6 @@ pipeline {
                         type: 'zip']
                     ]
                 )
-            }
-        }
-
-
-        stage('Publish artifact') {
-            steps {
-
-                sh 'ls -lrt'
-                sh 'zip -r  catalogue.zip ./* --exclude=.git --exclude=.zip'
-            
             }
         }
 
