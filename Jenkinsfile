@@ -28,7 +28,7 @@ pipeline {
             steps {
 
             sh 'ls -lrt'
-            sh 'zip -r  ./* --exclude=.git'
+            sh 'zip -r  ./* --exclude=.git --exclude=.zip'
             
             }
         }
@@ -47,7 +47,7 @@ pipeline {
     post{
         always{
             echo 'cleaning up workspace'
-            //deleteDir()
+            deleteDir()
         }
     }
 }
