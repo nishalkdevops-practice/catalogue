@@ -33,6 +33,27 @@ pipeline {
             }
         }
 
+          //install pipeline utility steps plugin, if not installed
+        stage('Publish Artifact') {
+            steps {
+                nexusArtifactUploader(
+                    nexusVersion: 'nexus3',
+                    protocol: 'http',
+                    nexusUrl: 'http://54.204.155.165:8081/',
+                    groupId: 'com.roboshop',
+                    version: '1.0.0',
+                    repository: 'catalogue',
+                    credentialsId: 'nexus-auth',
+                    artifacts: [
+                        [artifactId: 'catalogue',
+                        classifier: '',
+                        file: 'catalogue.zip',
+                        type: 'zip']
+                    ]
+                )
+            }
+        }
+
 
         stage('Publish artifact') {
             steps {
