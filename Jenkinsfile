@@ -27,8 +27,18 @@ pipeline {
         stage('Build') {
             steps {
 
-            sh 'ls -lrt'
-            sh 'zip -r  ./* --exclude=.git --exclude=.zip'
+                sh 'ls -lrt'
+                sh 'zip -r  ./* --exclude=.git --exclude=.zip'
+            
+            }
+        }
+
+
+        stage('Publish artifact') {
+            steps {
+
+                sh 'ls -lrt'
+                sh 'zip -r  catalogue.zip ./* --exclude=.git --exclude=.zip'
             
             }
         }
