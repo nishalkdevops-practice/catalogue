@@ -18,9 +18,16 @@ pipeline {
         }
 
         stage('Sonar scan') {
-            steps {
-                sh 'sonar-scanner'
+           steps {
+                 sh 'sonar-scanner'
                 echo "unit testing is done here...."
+            }
+        }
+
+        stage('Deployment') {
+           steps {
+                 
+                echo "Deployment is done...."
             }
         }
     }
