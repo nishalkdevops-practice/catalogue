@@ -30,8 +30,17 @@ pipeline {
                 echo "Deployment is done...."
             }
         }
+
+
     }
+
+    post{
+        always{
+            echo 'cleaning up workspace'
+            //deleteDir()
+        }
+    }
+}
 
     
     
-}
