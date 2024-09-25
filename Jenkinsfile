@@ -1,5 +1,8 @@
 pipeline {
-    agent { node { label 'AGENT' } }
+    agent { node { label 'AGENT-1' } }
+    options {
+        timeout(time: 1, unit: 'HOURS')
+    }
     stages {
         
         stage('Install dependencies') {
