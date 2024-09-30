@@ -1,9 +1,22 @@
 pipeline {
-    agent { node { label 'AGENT-1' } }
+    agent { node { label 'Agent-1' } }
     options {
         timeout(time: 1, unit: 'HOURS')
     }
     stages {
+
+        stage('GET version') {
+            steps {
+                script{
+                    def packageJson = readJson file: 'package.json'
+                    def packageversion = packageJSON.Version
+                    echo "${packageJSONVersion}"
+
+
+                }
+            
+            }
+        }
         
         stage('Install dependencies') {
             steps {
@@ -19,8 +32,8 @@ pipeline {
 
         stage('Sonar scan') {
            steps {
-                 sh 'sonar-scanner'
-                echo "unit testing is done here...."
+                 //sh 'sonar-scanner'
+                echo "Sonar scan is done...."
             }
         }
 
@@ -37,34 +50,35 @@ pipeline {
 
 
 
-        stage('Publish artifact') {
+        stage('SAST') {
             steps {
 
-                sh 'ls -lrt'
-                sh 'zip -r  catalogue.zip ./* --exclude=.git --exclude=.zip'
+                echo "Static application security testing done.........."
             
             }
         }
 
-        stage('Publish Artifact') {
-            steps {
-                nexusArtifactUploader(
-                    nexusVersion: 'nexus3',
-                    protocol: 'http',
-                    nexusUrl: '54.204.155.165:8081/',
-                    groupId: 'com.roboshop',
-                    version: '1.0.1',
-                    repository: 'catalogue',
-                    credentialsId: 'nexus-auth',
-                    artifacts: [
-                        [artifactId: 'catalogue',
-                        classifier: '',
-                        file: 'catalogue.zip',
-                        type: 'zip']
-                    ]
-                )
-            }
-        }
+        //install pipeline utility steps plugin if not installed
+
+        // stage('Publish Artifact') {
+        //     steps {
+        //         nexusArtifactUploader(
+        //             nexusVersion: 'nexus3',
+        //             protocol: 'http',
+        //             nexusUrl: '172.31.89.51:8081/',
+        //             groupId: 'com.roboshop',
+        //             version: '1.0.3',
+        //             repository: 'catalogue',
+        //             credentialsId: 'nexus-auth',
+        //             artifacts: [
+        //                 [artifactId: 'catalogue',
+        //                 classifier: '',
+        //                 file: 'catalogue.zip',
+        //                 type: 'zip']
+        //             ]
+        //         )
+        //     }
+        // }
 
 
         stage('Deployment') {
