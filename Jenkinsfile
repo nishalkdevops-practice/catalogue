@@ -10,72 +10,50 @@ pipeline {
 
 
     stages {
-
-        stage('GET version') {
-            steps {
+        stage('Get version'){
+            steps{
                 script{
                     def packageJson = readJSON(file: 'package.json')
                     packageVersion = packageJson.version
                     echo "version: ${packageVersion}"
-
-
                 }
-            
             }
         }
-        
-        stage('Install dependencies') {
+        stage('Install depdencies') {
             steps {
-                sh 'sudo yum update -y'
-                sh 'sudo yum install nodejs npm -y'
-
-            
+                sh 'npm install'
             }
         }
-
-        stage('Unit Test') {
+        stage('Unit test') {
             steps {
                 echo "unit testing is done here"
             }
         }
-
-        stage('Sonar scan') {
-           steps {
-                 //sh 'sonar-scanner'
-                echo "Sonar scan is done...."
+        //sonar-scanner command expect sonar-project.properties should be available
+        stage('Sonar Scan') {
+            steps {
+                echo "Sonar scan done"
             }
         }
-
         stage('Build') {
             steps {
-
-                sh 'ls -lrt'
-                sh 'zip -r  ./* --exclude=.git --exclude=.zip'
-            
+                sh 'ls -ltr'
+                sh 'zip -r catalogue.zip ./* --exclude=.git --exclude=.zip'
             }
         }
-
-          //install pipeline utility steps plugin, if not installed
-
-
-
         stage('SAST') {
             steps {
-
-                echo "Static application security testing done.........."
-                echo "package version: ${packageVersion}"
-            
+                echo "SAST Done"
+                echo "package version: $packageVersion"
             }
         }
-
-        //install pipeline utility steps plugin if not installed
-
+        //install pipeline utility steps plugin, if not installed
         stage('Publish Artifact') {
             steps {
                 nexusArtifactUploader(
                     nexusVersion: 'nexus3',
                     protocol: 'http',
-                    nexusUrl: '3.82.186.122:8081/',
+                    nexusUrl: '172.31.89.51:8081/',
                     groupId: 'com.roboshop',
                     version: "$packageVersion",
                     repository: 'catalogue',
