@@ -3,13 +3,19 @@ pipeline {
     options {
         timeout(time: 1, unit: 'HOURS')
     }
+
+    environment{
+        packageVersion = ''
+    }
+
+
     stages {
 
         stage('GET version') {
             steps {
                 script{
-                    def packageJson = readJson file: 'package.json'
-                    def packageVersion = packageJson.Version
+                    def packageJson = readJson(file: 'package.json')
+                    packageVersion = packageJson.Version
                     echo "version: ${packageVersion}"
 
 
@@ -54,6 +60,7 @@ pipeline {
             steps {
 
                 echo "Static application security testing done.........."
+                echo "package version: ${packageVersion}"
             
             }
         }
