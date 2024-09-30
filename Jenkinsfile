@@ -26,6 +26,7 @@ pipeline {
         
         stage('Install dependencies') {
             steps {
+                sh 'sudo su -'
                 sh 'npm install'
             }
         }
