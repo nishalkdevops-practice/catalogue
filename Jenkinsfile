@@ -26,8 +26,8 @@ pipeline {
         
         stage('Install dependencies') {
             steps {
-                sh 'yum update -y'
-                sh 'yum install nodejs npm -y'
+                sh 'sudo yum update -y'
+                sh 'sudo yum install nodejs npm -y'
 
             
             }
