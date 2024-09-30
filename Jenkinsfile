@@ -70,11 +70,11 @@ pipeline {
 
         //here below we need to configure the downstream job, Above we have the CI (upstream job)
         //this job will wait untill the downstream job is over
-        
-        stage('Deployment') {
+
+        stage('Deploy') {
            steps {
                  
-                echo "Deployment is done...."
+                echo "Deployment..."
                 build job: "../catalogue-deploy/", wait: true
             }
         }
