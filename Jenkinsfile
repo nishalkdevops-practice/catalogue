@@ -21,7 +21,11 @@ pipeline {
         }
         stage('Install depdencies') {
             steps {
-                sh 'npm install'
+                sh """
+                    sudo yum update -y
+                    sudo yum install nodejs npm -y
+
+                   """
             }
         }
         stage('Unit test') {
