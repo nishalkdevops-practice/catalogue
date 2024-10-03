@@ -1,6 +1,6 @@
 {
   "name": "catalogue",
-  "version": "2.1.9",
+  "version": "2.2.9",
   "description": "product catalogue REST API",
   "main": "server.js",
   "scripts": {
