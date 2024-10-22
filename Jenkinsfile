@@ -2,7 +2,7 @@
 @Library('roboshop-shared-library') _
 
 def configMap = [
-    application: "nodeJSVM" ,
+    application: "nodeJSEKS" ,   //we migrating to microservice
     component: "catalogue"
 ]
 env
